@@ -1,18 +1,18 @@
 <template>
   <div id="order">
     <!-- 表单 -->
-    <el-form :inline="true" :model="formInline" class="demo-form-inline">
-      <el-form-item label="订单号">
+    <el-form :inline="true" ref="formInline" :model="formInline" class="demo-form-inline">
+      <el-form-item label="订单号" prop="orderNo">
         <el-input v-model="formInline.orderNo" placeholder="订单号"></el-input>
       </el-form-item>
-      <el-form-item label="收货人">
+      <el-form-item label="收货人" prop="consignee">
         <el-input v-model="formInline.consignee" placeholder="收货人"></el-input>
       </el-form-item>
-      <el-form-item label="手机号">
+      <el-form-item label="手机号" prop="phone">
         <el-input v-model="formInline.phone" placeholder="手机号"></el-input>
       </el-form-item>
 
-      <el-form-item label="订单状态">
+      <el-form-item label="订单状态" prop="orderState">
         <el-select v-model="formInline.orderState" placeholder="订单状态">
           <el-option label="已完成" value="已完成"></el-option>
           <el-option label="派送中" value="派送中"></el-option>
@@ -31,6 +31,7 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">查询</el-button>
+        <el-button @click="resetForm('formInline')">重置</el-button>
       </el-form-item>
     </el-form>
 
@@ -68,7 +69,7 @@
         <el-table-column property="phone" label="手机号"></el-table-column>
         <el-table-column property="consignee" label="收货人"></el-table-column>
         <el-table-column property="deliverAddress" label="配送地址"></el-table-column>
-        <el-table-column property="deliveryTime" label="送达时间"  width="200">
+        <el-table-column property="deliveryTime" label="送达时间" width="200">
           <template slot-scope="scope">{{ scope.row.deliveryTime | formateDate}}</template>
         </el-table-column>
         <el-table-column property="remarks" label="用户备注"></el-table-column>
@@ -314,6 +315,14 @@ export default {
         }
         this.dialogFormVisible = false;
       });
+    },
+
+    resetForm(formName) {
+      // console.log(this.$refs[formName]);
+
+      this.$refs[formName].resetFields();
+
+      this.refresh(this.currentPage);
     }
   },
 
@@ -333,10 +342,12 @@ export default {
 
 <style lang="less" scoped>
 #order {
-  height: 600px;
   background-color: #fff;
   .el-form {
     padding: 20px 0 0 20px;
+  }
+  .el-pagination {
+    padding: 20px 10px;
   }
 }
 </style>

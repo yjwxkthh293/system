@@ -119,7 +119,7 @@ export default {
           ]
         });
         myChart.hideLoading();
-      }, 3000);
+      }, 1000);
     });
   }
 };

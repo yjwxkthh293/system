@@ -1,6 +1,16 @@
 import axios from 'axios'
 
-axios.defaults.baseURL = 'http://localhost:5000';
+
+export const baseURL = 'http://localhost:5000';
+
+// 商铺图片上传
+export const shop_upland = baseURL + '/shop/upload/'
+// 商品图片上传
+export const goods_upland = baseURL + '/goods/goods_img_upload/'
+
+export const shops= baseURL + '/upload/shop/'
+
+axios.defaults.baseURL = baseURL
 
 //登陆  account 账号  password  密码
 export const Login = (account, password) => axios.post("/users/checkLogin", { account, password })
@@ -102,4 +112,4 @@ export const Search = (currentPage, pageSize, orderNo, consignee, phone, orderSt
 export const Info = () => axios.get('/shop/info', { params: {} })
 
 // 28. 店铺内容修改
-export const EditShops = (id, name, bulletin, avatar, deliveryPrice, deliveryTime, description, score, sellCount, supports, date, pics) => axios.post('/shop/edit', { id, name, bulletin, avatar, deliveryPrice, deliveryTime, description, score, sellCount, supports, date, pics })
+export const EditShops = (params) => axios.post('/shop/edit', params)

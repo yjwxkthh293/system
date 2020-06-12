@@ -13,7 +13,7 @@
             v-for="item in options"
             :key="item.value"
             :label="item.cateName"
-            :value="item.value"
+            :value="item.cateName"
           ></el-option>
         </el-select>
       </el-form-item>
@@ -25,7 +25,7 @@
       <el-form-item label="商品图片">
         <el-upload
           class="avatar-uploader"
-          action="http://127.0.0.1:5000/goods/goods_img_upload"
+          :action="GOODS_UPLAND"
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload"
@@ -46,11 +46,13 @@
 </template>
 
 <script>
-import { Add, CateGories } from "../../api/apis";
+import { Add, CateGories, goods_upland } from "../../api/apis";
 
 export default {
   data() {
     return {
+      GOODS_UPLAND: goods_upland,
+
       imageUrl: "",
       num: 1,
       form: {
@@ -79,7 +81,8 @@ export default {
             type: "success",
             duration: 1000
           });
-          window.location.reload();
+          // window.location.reload();
+          this.$router.push("/goods/goodslist");
         } else {
           this.$message({
             message: res.data.msg,

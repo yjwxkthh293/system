@@ -11,7 +11,7 @@
           <el-row class="tac">
             <el-col :span="12">
               <el-menu
-                :default-active="defaultActive"
+                :default-active="$route.path"
                 class="el-menu-vertical-demo"
                 background-color="#2d3a4b"
                 text-color="#fff"
@@ -62,6 +62,7 @@
               </div>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item command="personal">个人中心</el-dropdown-item>
+                <el-dropdown-item command="logout">注销</el-dropdown-item>
                 <el-dropdown-item></el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
@@ -189,17 +190,24 @@ export default {
         case "/statistics/orderstatistics":
           arr = ["销售统计", "订单统计"];
           break;
-
-        default:
-          break;
       }
       this.breadcrumblist = arr;
     },
 
-    handleCommand() {
-
-      this.$router.push("/index/person");
+    handleCommand(command) {
+      const vm = this;
+      if (command === "logout") {
+        //注销
+        vm.$router.push("/");
+        localStorage.removeItem("token");
+      } else if (command === "personal") {
+        vm.$router.push("/index/person");
+      }
     }
+
+    // logout() {
+    //   console.log(11);
+    // }
   },
 
   watch: {
@@ -213,7 +221,7 @@ export default {
   created() {
     let hash = this.$route.path;
     //根据hash值改变左侧树菜单默认选中
-    this.defaultActive = hash;
+    // this.defaultActive = hash;
 
     this.editdefaultActive(hash);
 
@@ -222,7 +230,6 @@ export default {
     // console.log(localStorage.token);
     // 验证token是否过期
     CheckToken(localStorage.token).then(() => {
-
       this.username = localStorage.user;
     });
 

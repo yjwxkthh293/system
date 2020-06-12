@@ -2,7 +2,7 @@
   <div id="goodsclassify">
     <div class="top">
       <p>商品分类</p>
-      <el-button type="primary" @click="dialogFormVisible = true">添加分类</el-button>
+      <el-button type="primary" @click="adddialogFormVisible = true">添加分类</el-button>
     </div>
 
     <el-table :data="tableData" style="width: 100%">
@@ -20,8 +20,9 @@
         </template>
       </el-table-column>
     </el-table>
+
     <!-- 添加商品模态框 -->
-    <el-dialog title="添加商品" :visible.sync="dialogFormVisible">
+    <el-dialog title="添加商品" :visible.sync="adddialogFormVisible">
       <el-form :model="form">
         <el-form-item label="分类名称" :label-width="formLabelWidth">
           <el-input v-model="form.region" autocomplete="off"></el-input>
@@ -32,7 +33,7 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button @click="adddialogFormVisible = false">取 消</el-button>
         <el-button type="primary" @click="addClassify">确 定</el-button>
       </div>
     </el-dialog>
@@ -73,6 +74,7 @@ import { CateList, DelCate, AddCate, EditCate } from "../../api/apis";
 export default {
   data() {
     return {
+      adddialogFormVisible: false,
       currentPage: 1, //当前页码
       pageSizes: [5, 10, 15, 20],
       pagesize: 5, //每页条数
@@ -81,6 +83,7 @@ export default {
 
       value: true,
       dialogFormVisible: false,
+
       form: {
         region: "",
         state: ""
@@ -111,7 +114,7 @@ export default {
             type: "success",
             duration: 2000,
             onClose: () => {
-             this.refresh(this.currentPage);
+              this.refresh(this.currentPage);
             }
           });
         }
@@ -120,7 +123,7 @@ export default {
 
     handleSizeChange(val) {
       this.pagesize = val;
-      this.refresh(this.currentPage,val);
+      this.refresh(this.currentPage, val);
     },
 
     handleCurrentChange(val) {
@@ -130,13 +133,15 @@ export default {
       this.refresh(this.currentPage);
     },
 
-    //点击添加商品
+    // 点击添加商品分类
     addClassify() {
-      this.dialogFormVisible = false;
+      // console.log(1111);
+
+      this.adddialogFormVisible = false;
       var cateName = this.form.region;
       var state = this.form.state;
 
-      // console.log(cateName);
+      // console.log(state, cateName);
       AddCate(cateName, JSON.stringify(state)).then(res => {
         if (res.data.code == 0) {
           this.$message({
@@ -149,6 +154,7 @@ export default {
           });
         }
       });
+      // console.log(AddCate);
     },
 
     //点击编辑打开模态框
@@ -168,16 +174,16 @@ export default {
       var state = this.form.state;
 
       // console.log(id, cateName, state);
-      EditCate(id, cateName, JSON.stringify(state) ).then(res => {
+      EditCate(id, cateName, JSON.stringify(state)).then(res => {
         // console.log(res);
-        
+
         if (res.data.code == 0) {
           this.$message({
             message: res.data.msg,
             type: "success",
             duration: 1000,
             onClose: () => {
-             this.refresh(this.currentPage);
+              this.refresh(this.currentPage);
             }
           });
         }
