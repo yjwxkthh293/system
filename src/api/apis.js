@@ -1,14 +1,19 @@
 import axios from 'axios'
 
 
-export const baseURL = 'http://localhost:5000';
+export const baseURL = 'http://127.0.0.1:5000';
+
+
+
 
 // 商铺图片上传
 export const shop_upland = baseURL + '/shop/upload/'
 // 商品图片上传
 export const goods_upland = baseURL + '/goods/goods_img_upload/'
 
-export const shops= baseURL + '/upload/shop/'
+export const upland = baseURL + '/upload/imgs/goods_img/'
+
+export const shops = baseURL + '/upload/shop/'
 
 axios.defaults.baseURL = baseURL
 

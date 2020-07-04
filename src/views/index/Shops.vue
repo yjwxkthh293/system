@@ -143,11 +143,11 @@ export default {
     },
 
     handleRemove(file) {
-      console.log(file);
+      // console.log(file);
       let index = this.shop.pics.findIndex(item => item.uid === file.uid);
-      console.log(index);
 
       this.shop.pics.splice(index, 1);
+      // console.log(this.shop.pics);
     },
     handlePictureCardPreview(file) {
       console.log(file.url);

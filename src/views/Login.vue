@@ -1,7 +1,7 @@
 <template>
   <div id="login" class="login">
     <div class="login_div">
-      <h2>天娱系统登陆</h2>
+      <h2>上帝之手</h2>
 
       <div class="input_div">
         <el-input prefix-icon="el-icon-user" v-model="user"></el-input>

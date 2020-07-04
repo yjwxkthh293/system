@@ -30,9 +30,9 @@
             </el-form-item>
 
             <el-form-item label="创建时间">
-              <span>{{ props.row.ctime |formateDate }}</span>
+              <span>{{ props.row.ctime | formateDate }}</span>
             </el-form-item>
-            
+
             <el-form-item label="商品评价">
               <span>{{ props.row.rating }}</span>
             </el-form-item>
@@ -50,10 +50,7 @@
       <el-table-column label="商品价格" prop="price"></el-table-column>
       <el-table-column label="商品图片" prop="img">
         <template slot-scope="scope">
-          <el-image
-            style="width: 50px; height: 50px"
-            :src="'http://127.0.0.1:5000/upload/imgs/goods_img/'+scope.row.imgUrl"
-          ></el-image>
+          <el-image style="width: 50px; height: 50px" :src="UPLAND+scope.row.imgUrl"></el-image>
         </template>
       </el-table-column>
       <el-table-column label="描述" prop="goodsDesc"></el-table-column>
@@ -83,7 +80,7 @@
         <el-form-item label="商品图片地址" :label-width="formLabelWidth">
           <el-upload
             class="avatar-uploader"
-            action="http://127.0.0.1:5000/goods/goods_img_upload"
+            :action="UPLAND"
             :show-file-list="false"
             :on-success="handleAvatarSuccess"
             :before-upload="beforeAvatarUpload"
@@ -117,12 +114,21 @@
 </template>
 
 <script>
-import { GoodsList, DelGodds, EditGoods } from "../../api/apis";
+import {
+  GoodsList,
+  DelGodds,
+  EditGoods,
+  goods_upland,
+  upland
+} from "../../api/apis";
 import moment from "moment";
 
 export default {
   data() {
     return {
+      GOODS_UPLAND: goods_upland,
+      UPLAND: upland,
+
       currentPage: 1, //当前页码
       pageSizes: [5, 10, 15, 20],
       pagesize: 5, //每页条数
@@ -188,13 +194,10 @@ export default {
       });
     },
     editBtn(row) {
- 
-
       this.form.name = row.name;
       this.form.region = row.category;
       this.form.price = row.price;
-      this.imageUrl =
-        "http://127.0.0.1:5000/upload/imgs/goods_img/" + row.imgUrl;
+      this.imageUrl = this.UPLAND + row.imgUrl;
 
       this.form.goodsDesc = row.goodsDesc;
       this.id = row.id;

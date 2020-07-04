@@ -69,6 +69,8 @@ export default {
       // console.log(this.value1);
 
       OrderTotal(JSON.stringify(this.value1)).then(res => {
+        console.log(res);
+        
         // this.option = res.data.data;
         res.data.data.forEach(item => {
           this.orderTime.push(item.orderTime);
@@ -123,7 +125,7 @@ export default {
         });
         this.myChart.hideLoading();
 
-        console.log(this.orderTime);
+        // console.log(this.orderTime);
       });
     }
   },
@@ -131,49 +133,49 @@ export default {
   mounted() {
     this.myChart = echarts.init(document.getElementById("main"));
 
-    this.myChart.showLoading();
+    // this.myChart.showLoading();
     // console.log(this.orderTime);
-    // this.myChart.setOption({
-    //   title: {
-    //     text: ""
-    //   },
-    //   tooltip: {
-    //     trigger: "axis"
-    //   },
-    //   legend: {
-    //     data: ["邮件营销", "联盟广告", "视频广告", "直接访问", "搜索引擎"]
-    //   },
-    //   grid: {
-    //     left: "3%",
-    //     right: "4%",
-    //     bottom: "3%",
-    //     containLabel: true
-    //   },
-    //   toolbox: {
-    //     feature: {
-    //       saveAsImage: {}
-    //     }
-    //   },
+    this.myChart.setOption({
+      title: {
+        text: ""
+      },
+      tooltip: {
+        trigger: "axis"
+      },
+      legend: {
+        data: ["邮件营销", "联盟广告", "视频广告", "直接访问", "搜索引擎"]
+      },
+      grid: {
+        left: "3%",
+        right: "4%",
+        bottom: "3%",
+        containLabel: true
+      },
+      toolbox: {
+        feature: {
+          saveAsImage: {}
+        }
+      },
 
-    //   xAxis: {
-    //     type: "category",
-    //     boundaryGap: false,
-    //     data: this.orderTime
-    //   },
+      xAxis: {
+        type: "category",
+        boundaryGap: false,
+        data: this.orderTime
+      },
 
-    //   yAxis: {
-    //     type: "value"
-    //   },
-    //   series: [
-    //     {
-    //       name: "邮件营销",
-    //       type: "line",
-    //       stack: "总量",
-    //       data: [120, 132, 101, 134, 90, 230, 210]
-    //     },
+      yAxis: {
+        type: "value"
+      },
+      series: [
+        {
+          name: "邮件营销",
+          type: "line",
+          stack: "总量",
+          data: [120, 132, 101, 134, 90, 230, 210]
+        },
         
-    //   ]
-    // });
+      ]
+    });
   }
 };
 </script>

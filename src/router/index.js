@@ -5,6 +5,12 @@ import { CheckToken } from '../api/apis'
 
 Vue.use(VueRouter)
 
+
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
+
 const routes = [
   {
     path: '/',
@@ -21,12 +27,13 @@ const routes = [
         path: '/index/home',
         name: 'home',
         component: () => import('../views/index/Home'),
-        mate:{role:['super','normal']}
+      
       },
       {
         path: '/index/order',
         name: 'order',
         component: () => import('../views/index/Order'),
+		
       },
       {
         path: '/index/shops',
@@ -101,7 +108,7 @@ router.beforeEach((to, from, next) => {
     CheckToken(localStorage.token).then(res => {
 
       // console.log(res);
-      
+
       if (res.data.code == 0) {
         next()
       } else {
