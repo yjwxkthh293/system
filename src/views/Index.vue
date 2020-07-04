@@ -138,7 +138,7 @@ export default {
         {
           index: "statistics",
           icon: "el-icon-pie-chart",
-          title: "销售统计",
+          title: "销售统",
           role: ["super"],
           children: [
             { index: "/statistics/goodsstatistics", title: "商品统计" },
