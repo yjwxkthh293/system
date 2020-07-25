@@ -1,7 +1,7 @@
 <template>
   <div id="login" class="login">
     <div class="login_div">
-      <h2>上帝之手11111s</h2>
+      <h2>上帝之手2222</h2>
 
       <div class="input_div">
         <el-input prefix-icon="el-icon-user" v-model="user"></el-input>
